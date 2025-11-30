@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, useActionData, useNavigation, redirect, Link, useNavigate } from "react-router";
 import { useEffect } from "react";
+import { API_BASE_URL } from "@/lib/api";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -24,7 +25,7 @@ export async function action({ request }: Route.ActionArgs) {
   console.log("[FRONTEND] Sign in attempt:", { email });
 
   try {
-    const response = await fetch("http://localhost:5001/api/auth/login", {
+    const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

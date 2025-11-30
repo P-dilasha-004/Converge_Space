@@ -1,9 +1,7 @@
 #!/bin/bash
 
-# Converge Space - Start Script
-# This script starts both backend and frontend servers
 
-echo "🚀 Starting Converge Space Application..."
+echo "Starting Converge Space Application..."
 echo ""
 
 # Colors for output
@@ -14,9 +12,9 @@ NC='\033[0m' # No Color
 
 # Check if backend is already running
 if lsof -ti:5001 > /dev/null 2>&1; then
-    echo -e "${YELLOW}⚠️  Backend is already running on port 5001${NC}"
+    echo -e "${YELLOW}  Backend is already running on port 5001${NC}"
 else
-    echo -e "${BLUE}📦 Starting Backend Server...${NC}"
+    echo -e "${BLUE} Starting Backend Server...${NC}"
     cd backend
     npm run dev > ../backend.log 2>&1 &
     BACKEND_PID=$!
@@ -27,9 +25,9 @@ fi
 
 # Check if frontend is already running
 if lsof -ti:5173 > /dev/null 2>&1 || lsof -ti:5174 > /dev/null 2>&1; then
-    echo -e "${YELLOW}⚠️  Frontend is already running${NC}"
+    echo -e "${YELLOW}  Frontend is already running${NC}"
 else
-    echo -e "${BLUE}📦 Starting Frontend Server...${NC}"
+    echo -e "${BLUE} Starting Frontend Server...${NC}"
     cd frontend/vite-project
     npm run dev > ../../frontend.log 2>&1 &
     FRONTEND_PID=$!
@@ -40,13 +38,13 @@ fi
 
 echo ""
 echo -e "${GREEN}═══════════════════════════════════════════════════════${NC}"
-echo -e "${GREEN}  ✅ APPLICATION STARTED SUCCESSFULLY!${NC}"
+echo -e "${GREEN}  APPLICATION STARTED SUCCESSFULLY!${NC}"
 echo -e "${GREEN}═══════════════════════════════════════════════════════${NC}"
 echo ""
-echo -e "${BLUE}📍 Frontend:${NC} http://localhost:5173 (or 5174)"
-echo -e "${BLUE}🔧 Backend:${NC}  http://localhost:5001"
+echo -e "${BLUE} Frontend:${NC} http://localhost:5173 (or 5174)"
+echo -e "${BLUE} Backend:${NC}  http://localhost:5001"
 echo ""
-echo -e "${YELLOW}💡 To stop servers, run: ./stop.sh${NC}"
-echo -e "${YELLOW}💡 Or press Ctrl+C and run: pkill -f 'nodemon|vite'${NC}"
+echo -e "${YELLOW} To stop servers, run: ./stop.sh${NC}"
+echo -e "${YELLOW} Or press Ctrl+C and run: pkill -f 'nodemon|vite'${NC}"
 echo ""
 

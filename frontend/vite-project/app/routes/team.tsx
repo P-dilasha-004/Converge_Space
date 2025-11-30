@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router";
+import { API_BASE_URL } from "@/lib/api";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -39,7 +40,7 @@ export default function TeamView() {
         window.location.href = "/signin";
         return;
       }
-      const response = await fetch(`http://localhost:5001/api/team/${workspaceId}/members`, {
+      const response = await fetch(`${API_BASE_URL}/api/team/${workspaceId}/members`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -72,7 +73,7 @@ export default function TeamView() {
         window.location.href = "/signin";
         return;
       }
-      const response = await fetch(`http://localhost:5001/api/team/${workspaceId}/ai-summary`, {
+      const response = await fetch(`${API_BASE_URL}/api/team/${workspaceId}/ai-summary`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -107,7 +108,7 @@ export default function TeamView() {
         window.location.href = "/signin";
         return;
       }
-      const response = await fetch(`http://localhost:5001/api/team/${workspaceId}/members/${memberId}/summary`, {
+      const response = await fetch(`${API_BASE_URL}/api/team/${workspaceId}/members/${memberId}/summary`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -139,7 +140,7 @@ export default function TeamView() {
         window.location.href = "/signin";
         return;
       }
-      const response = await fetch(`http://localhost:5001/api/team/${workspaceId}/members`, {
+      const response = await fetch(`${API_BASE_URL}/api/team/${workspaceId}/members`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

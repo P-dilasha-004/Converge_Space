@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, useActionData, useNavigation, useSearchParams, Link } from "react-router";
 import { useState, useEffect, useRef } from "react";
+import { API_BASE_URL } from "@/lib/api";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -22,7 +23,7 @@ export async function action({ request }: Route.ActionArgs) {
   const code = formData.get("code");
 
   try {
-    const response = await fetch("http://localhost:5001/api/auth/verify-reset-code", {
+    const response = await fetch(`${API_BASE_URL}/api/auth/verify-reset-code`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

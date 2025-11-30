@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, useActionData, useNavigation, Link, useNavigate } from "react-router";
+import { API_BASE_URL } from "@/lib/api";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -22,7 +23,7 @@ export async function action({ request }: Route.ActionArgs) {
   console.log("[FRONTEND] Password reset request:", { email });
 
   try {
-    const response = await fetch("http://localhost:5001/api/auth/forgot-password", {
+    const response = await fetch(`${API_BASE_URL}/api/auth/forgot-password`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

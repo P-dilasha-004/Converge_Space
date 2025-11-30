@@ -1,24 +1,11 @@
 import nodemailer from 'nodemailer';
 
-// Create transporter - supports multiple email providers
 const createTransporter = () => {
-  // Try to use environment variables for email service
   const emailService = process.env.EMAIL_SERVICE || 'gmail';
   const emailUser = process.env.EMAIL_USER;
   const emailPassword = process.env.EMAIL_PASSWORD;
   const emailHost = process.env.EMAIL_HOST;
   const emailPort = process.env.EMAIL_PORT;
-
-  // If using Gmail with app password
-  if (emailService === 'gmail' && emailUser && emailPassword) {
-    return nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: emailUser,
-        pass: emailPassword,
-      },
-    });
-  }
 
   // If using custom SMTP
   if (emailHost && emailPort && emailUser && emailPassword) {
@@ -33,17 +20,14 @@ const createTransporter = () => {
     });
   }
 
-  // Fallback: In development, we'll log the code instead of sending email
-  // This allows testing without email configuration
   console.log('[EMAIL] No email configuration found. In development mode, codes will be logged to console.');
-  return null as any; // Return null, we'll handle this in sendVerificationCode
+  return null as any;
 };
 
 export const sendVerificationCode = async (email: string, code: string): Promise<boolean> => {
   try {
     const transporter = createTransporter();
-    
-    // If no transporter (no email config), just log the code in development
+  
     if (!transporter) {
       if (process.env.NODE_ENV === 'development') {
         console.log('[EMAIL] Development mode - Verification code for', email, ':', code);
@@ -100,7 +84,6 @@ export const sendVerificationCode = async (email: string, code: string): Promise
     const info = await transporter.sendMail(mailOptions);
     console.log('[EMAIL] Verification code sent:', info.messageId);
     
-    // If using Ethereal, log the preview URL for development
     if (process.env.NODE_ENV === 'development' && info.messageId) {
       console.log('[EMAIL] Preview URL:', nodemailer.getTestMessageUrl(info));
     }
@@ -108,7 +91,6 @@ export const sendVerificationCode = async (email: string, code: string): Promise
     return true;
   } catch (error) {
     console.error('[EMAIL] Error sending verification code:', error);
-    // In development, we'll still allow password reset even if email fails
     if (process.env.NODE_ENV === 'development') {
       console.log('[EMAIL] Development mode: Email sending failed, but continuing...');
       console.log('[EMAIL] Verification code for', email, ':', code);

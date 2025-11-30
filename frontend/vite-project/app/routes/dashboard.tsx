@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router";
+import { API_BASE_URL } from "@/lib/api";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -87,7 +88,7 @@ export default function Dashboard() {
         return;
       }
       
-      const response = await fetch("http://localhost:5001/api/workspaces", {
+      const response = await fetch(`${API_BASE_URL}/api/workspaces`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -118,7 +119,7 @@ export default function Dashboard() {
   const fetchTeamMembers = async (workspaceId: string) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`http://localhost:5001/api/team/${workspaceId}/members`, {
+      const response = await fetch(`${API_BASE_URL}/api/team/${workspaceId}/members`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -139,7 +140,7 @@ export default function Dashboard() {
         navigate("/signin");
         return;
       }
-      const response = await fetch(`http://localhost:5001/api/workspaces/${workspaceId}/projects`, {
+      const response = await fetch(`${API_BASE_URL}/api/workspaces/${workspaceId}/projects`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -171,7 +172,7 @@ export default function Dashboard() {
         return;
       }
       const response = await fetch(
-        `http://localhost:5001/api/workspaces/${workspaceId}/projects/${projectId}/tasks`,
+        `${API_BASE_URL}/api/workspaces/${workspaceId}/projects/${projectId}/tasks`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -209,7 +210,7 @@ export default function Dashboard() {
         return;
       }
       
-      const response = await fetch("http://localhost:5001/api/workspaces", {
+      const response = await fetch(`${API_BASE_URL}/api/workspaces`, {
         method: "POST",
         headers: { 
           "Content-Type": "application/json",
@@ -254,7 +255,7 @@ export default function Dashboard() {
         navigate("/signin");
         return;
       }
-      const response = await fetch(`http://localhost:5001/api/workspaces/${selectedWorkspace.id}/projects`, {
+      const response = await fetch(`${API_BASE_URL}/api/workspaces/${selectedWorkspace.id}/projects`, {
         method: "POST",
         headers: { 
           "Content-Type": "application/json",
@@ -299,7 +300,7 @@ export default function Dashboard() {
         navigate("/signin");
         return;
       }
-      const response = await fetch(`http://localhost:5001/api/workspaces/${selectedWorkspace.id}/projects/${projectId}`, {
+      const response = await fetch(`${API_BASE_URL}/api/workspaces/${selectedWorkspace.id}/projects/${projectId}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -338,7 +339,7 @@ export default function Dashboard() {
       }
       const projectId = selectedProject.id || selectedProject._id;
       const response = await fetch(
-        `http://localhost:5001/api/workspaces/${selectedWorkspace.id}/projects/${projectId}/tasks`,
+        `${API_BASE_URL}/api/workspaces/${selectedWorkspace.id}/projects/${projectId}/tasks`,
         {
           method: "POST",
           headers: { 
@@ -390,7 +391,7 @@ export default function Dashboard() {
       }
       const projectId = selectedProject.id || selectedProject._id;
       const response = await fetch(
-        `http://localhost:5001/api/workspaces/${selectedWorkspace.id}/projects/${projectId}/tasks/${taskId}`,
+        `${API_BASE_URL}/api/workspaces/${selectedWorkspace.id}/projects/${projectId}/tasks/${taskId}`,
         {
           method: "PATCH",
           headers: {
@@ -433,7 +434,7 @@ export default function Dashboard() {
       }
       const projectId = selectedProject.id || selectedProject._id;
       const response = await fetch(
-        `http://localhost:5001/api/workspaces/${selectedWorkspace.id}/projects/${projectId}/tasks/${taskId}`,
+        `${API_BASE_URL}/api/workspaces/${selectedWorkspace.id}/projects/${projectId}/tasks/${taskId}`,
         {
           method: "DELETE",
           headers: {

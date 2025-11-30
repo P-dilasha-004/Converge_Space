@@ -1,9 +1,7 @@
 #!/bin/bash
 
-# Converge Space - Stop Script
-# This script stops both backend and frontend servers
 
-echo "🛑 Stopping Converge Space Application..."
+echo "Stopping Converge Space Application..."
 echo ""
 
 # Kill backend processes
@@ -18,6 +16,6 @@ lsof -ti:5173 | xargs kill -9 2>/dev/null
 lsof -ti:5174 | xargs kill -9 2>/dev/null
 
 echo ""
-echo "✅ All servers stopped!"
+echo "All servers stopped!"
 echo ""
 
